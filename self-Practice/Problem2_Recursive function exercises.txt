@@ -1,0 +1,78 @@
+
+
+def RecReverseString(input_string):
+    """
+    input: string
+    output: the reversion of string
+    """
+    if len(input_string) <= 1:
+        return input_string
+    return input_string[len(input_string)-1] + RecReverseString(input_string[0:len(input_string)-1])
+
+#Test code
+#string = input("请输入你想要反转的字符串：")
+#print(f"{string} 的反转是：{RecReverseString(string)}")
+
+
+def RecIsPrime(m):
+    """
+    Uses recursion to check if m is prime. 
+    You can design yourown recursive code regardless of the PrimerHelper, and use 
+    the test code to verify the correctness of the program
+    """
+    def PrimeHelper(m, j):
+        """
+        Helper Function to iterate through all j less 
+        than m up to 1 to look for even divisors.
+        """
+        if j == 1:
+            return True
+        else:
+            return m % j !=0 and PrimeHelper(m, j-1)
+    return PrimeHelper(m,m-1)
+
+# Text code
+#for i in range(10,20):
+#  print(RecIsPrime(i),end=" ")
+
+def RecExpo(base,exp):
+    """
+    Recursively computes base^exp for nonnegative exponents.
+    input: base  is the foundation of exponential operation;exp is an index for exponential operation.
+    output: the result of exponential operation
+    """
+    if base == 0 and exp == 0:
+        print("It is illegal")
+        return
+    elif exp < 0:
+        print("This function require the exp to be nonnegative")
+        return
+    else:
+        if exp == 0:
+            return 1
+        elif base == 0:
+            return 0
+        else:
+            return base*RecExpo(base,exp-1)
+
+# Test code
+#print(RecExpo(0,5))             
+#print(RecExpo(2,4))   
+#print(RecExpo(3,0))
+def RecMult(num1, num2):
+    """
+    Takes in two numbers nonnegative and    
+    recursively multiplies them together.
+    input : two nonnegative integer
+    output : num1 * num2
+    """
+    if num1 == 0 or num2 == 0:
+        return 0
+    else:
+        return num1 + RecMult(num1,num2 -1)
+# Test code
+#print(RecMult(0,5))
+#print(RecMult(5,4))
+#print(RecMult(3,0))
+
+

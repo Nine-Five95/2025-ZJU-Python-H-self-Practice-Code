@@ -1,0 +1,69 @@
+
+
+from math import gcd #本质上使用辗转相除可以定义gcd函数
+class Fraction:
+    def __init__(self,num =0,denom=1):
+        """
+        Initialize a rational number or a user-specified value
+        numerator of the fraction, default is 0
+        denominator of the fraction, cannot be 0
+        """
+        if denom == 0:            
+            raise ZeroDivisionError("分母不能为0")
+        if num == 0 :   # numerator is 0, set denominator is 1
+            self.num = 0
+            self.denom = 1
+        else:
+            sign = 1  # positive
+            if num * denom < 0:
+                sign = -1  # negative
+        a = abs(num)
+        b = abs(denom)
+        self.num = int(a/gcd(a,b))*sign
+        self.denom = int(b/gcd(a,b))
+    def __str__(self):  # return a string in the format
+        return f"{self.num}/{self.denom}"
+    def __add__(self,other): # return self + other
+        num_add = self.num * other.denom + self.denom * other.num
+        denom_add = other.denom * self.denom
+        return Fraction(num_add,denom_add)
+    def __sub__(self,other): # return self – other
+        num_sub = self.num * other.denom - self.denom * other.num
+        denom_sub = other.denom * self.denom
+        return Fraction(num_sub,denom_sub)
+    def __mul__(self,other): # Multiplication
+        num_mul = self.num*other.num
+        demon_mul = self.denom*other.denom
+        return Fraction(num_mul,demon_mul)
+    def __truediv__(self,other): # Division
+        num_div = self.num*other.denom
+        demon_div = self.denom*other.num
+        return Fraction(num_div,demon_div)
+    def __eq__(self, other) :  # equal? return True or False
+        return (self-other).num == 0
+    def __lt__(self, other) :  # less than? return True or False
+        return (self-other).num < 0
+    def __ne__(self, other) :  # not equal? return True or False
+        return (self-other).num != 0
+    def __le__(self, other) :  # less than or equal? return Ture or False
+        return (self-other).num <= 0
+    def __gt__(self, other) :  # greater than? return True or False
+        return (self-other).num > 0
+    def __ge__(self, other) :  # greater than or equal? return True or False
+        return (self-other).num >= 0
+    def __float__(self) :  # calculate the float value of the fraction
+        return self.num/self.denom
+    
+
+# Test Code
+a = Fraction(9,30)
+b = Fraction(5,8)
+print(a.num,"/",a.denom," ",a.__init__(3,4))
+# print(Fraction(0,0)) 
+print(a+b)
+print(a-b)
+print(a/b)
+print(a==b)
+print(a<b)
+print(a.__float__())
+print(b.__str__())

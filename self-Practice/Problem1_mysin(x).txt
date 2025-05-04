@@ -1,0 +1,33 @@
+
+def factorial(n):
+    k = 1
+    for i in range(1,n+1):
+        k *= i
+    return k
+
+
+def mysin(x,epix):
+    """
+    input : 输入想要计算的sin(x)和期待的误差epix
+    output : 输出计算结果
+    """
+    #由于Taylor展开中使用拉格朗日余项可知，展开到第k项 x**(2k+1)/(2k+1)!*(-1)**k 后 该多项式和真实值的误差的绝对值小于等于 abs(x)**(2k+2)/(2k+2)!
+    #对于任意的x属于R，当k趋近于正无穷的时候，误差趋近于0 (这是因为阶乘相较于指数是高阶无穷大
+    k = 0 #是我们开始计算要展开的项数
+    Flag = True
+    while Flag:
+        if abs(x)**(2*k+2)/factorial(2*k+2) <= epix:
+            Flag = False
+        k += 1
+    sin_x = 0
+    for i in range(k+1):
+        sin_x += x**(2*i+1)/factorial(2*i+1)*(-1)**i
+    return sin_x
+
+x = float(input("请输入你想要计算的sin(x)的自变量值："))
+epix_1 = float(input("请输入你预期接受的误差值："))
+print (f"sin(x)的值是：{mysin(x,epix_1)}",f"误差在{epix_1}以内")
+       
+
+
+    

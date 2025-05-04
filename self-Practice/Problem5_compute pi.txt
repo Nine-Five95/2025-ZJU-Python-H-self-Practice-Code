@@ -1,0 +1,25 @@
+
+# 计算方法 考虑arctan(x) 在0处的Taylor展开 arctan(x)= x-x**3/3+...+(-1)**k*x**(2*k+1)/(2*k+1)+... = f(x)
+# 构造函数fn(x) =  x-x**3/3+...+(-1)**n*x**(2*n+1)/(2*n+1),我们有fn(x)在x属于[-1，1]上是一致收敛于f(x)，有由于每一个fn(x)都是连续，从而f(x)在[-1，1]上为连续函数
+# 同时由于fn'(x) = 1-x**2+...+(-1)**n*x**2n 在(-1.1)上fn(x)内闭一致收敛于g(x)=1/(x**2+1),由一致收敛的可微性定理，我们由f(x)在（-1，1）上课导，且导函数是g(x)
+# 从而利用积分计算（-1，1）上f(x)得为arctan(x),从而再由连续性知，f(1)=arctan1，即pai/4 = 1-1/3+1/5-...+(-1)**k/(2*k+1)+... (这便是我们计算pai的方法)
+
+class pai_approach:
+    def __init__(self,error_want):
+        self.error_want =error_want
+        def terms_num(error_want):
+            return int((4/error_want)//2)+1
+        def  value(self):
+            value = 0
+            for i in range(self.terms_num):
+                value += (-1)**i/(2*i+1)
+            pai_estimate = value*4
+            return pai_estimate
+        self.terms_num=terms_num(error_want)
+        self.error_true_upper=4/(2*self.terms_num+1)
+        self.value = value(self)
+    def __str__(self):
+        return f"The value of estimation:{self.value},the ture upper of the error is{self.error_true_upper}"
+
+pai_approach_1 = pai_approach(0.0000001)
+print(pai_approach_1)

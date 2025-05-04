@@ -1,0 +1,42 @@
+# Student ID: 3240104076
+
+
+def Queens_problems(N):
+    """
+    to solve the N Queen problem
+    input: N(solve the N Queen's problem);
+    output: the number of solution
+    """
+    if N == 1:
+        return 1 # 当N=1时 显然答案是1
+    C1 = []
+    for i in range(1,N+1):
+        C1.append([i]) # 如果append中是一个不变的量，用append就没有什么风险
+    def Ones_iteration(k,d_k_1):
+        """
+        d_k_1 算到第k-1行时总共的方法列举的列表
+        k是第k列的意思
+        利用这个函数从k=2和d_k_1=C1 的基础开始想上迭代直到算到k=N时的d_N,并输出d_N中的元素个数即使solution数
+        """
+        d_k = []
+        d1 = d_k_1[0:len(d_k_1)]
+        FLag = True
+        for t in range(len(d1)):
+            for i in range(1,N+1):
+                for j in range(k-1):
+                    if i == d1[t][j] or abs(i-d1[t][j]) == abs(k-j-1):
+                        FLag = False   
+                if FLag:
+                    d_k += [d1[t] + [i]] # 这样子的增加方式不会改变d1[t]的值
+                else:
+                    FLag = True #  注意不要分不清FLag和Flag 无语了在这个上面找错误找了好久
+        if k == N:
+            return len(d_k)
+        return Ones_iteration(k+1,d_k)
+    return Ones_iteration(2,C1)
+    
+                
+N = int(input("What's the number of the Queen pronlems  you wanted to know?"))
+print(f"The number of solution of {N}'s Queen Problems is {Queens_problems(N)}")
+
+# 八皇后问题的答案是 92种（即N=8时程序的输出）
